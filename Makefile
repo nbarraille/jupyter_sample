@@ -4,7 +4,13 @@ install:
 	./bin/setup_jupyterlab.sh
 
 jupyter:
-	PATH=${PATH}:node_modules/.bin poetry run jupyter notebook
+	PYTHONPATH=$(shell pwd)/dslib \
+		PATH=${PATH}:node_modules/.bin \
+		PYTHONSTARTUP=$(shell pwd)/nb_startup.py \
+		poetry run jupyter notebook
 
 jupyterlab:
-	poetry run jupyter lab
+	PYTHONPATH=$(shell pwd)/dslib \
+		PATH=${PATH}:node_modules/.bin \
+		PYTHONSTARTUP=$(shell pwd)/nb_startup.py \
+		poetry run jupyter lab
